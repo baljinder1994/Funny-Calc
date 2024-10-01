@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funny Calculator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+        }
+        .calculator {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 320px;
+        }
+        #input {
+            width: 100%;
+            padding: 10px;
+            font-size: 24px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+        .button {
+            width: 70px;
+            height: 70px;
+            font-size: 24px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .button.clear {
+            background-color: #dc3545;
+        }
+        .button.clear:hover {
+            background-color: #c82333;
+        }
+        .button.equals {
+            background-color: #28a745;
+        }
+        .button.equals:hover {
+            background-color: #218838;
+        }
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <input type="text" id="input" placeholder="0" disabled>
+    <div class="buttons">
+        <button class="button" onclick="appendToInput('7')">7</button>
+        <button class="button" onclick="appendToInput('8')">8</button>
+        <button class="button" onclick="appendToInput('9')">9</button>
+        <button class="button" onclick="appendToInput('/')">/</button>
+
+        <button class="button" onclick="appendToInput('4')">4</button>
+        <button class="button" onclick="appendToInput('5')">5</button>
+        <button class="button" onclick="appendToInput('6')">6</button>
+        <button class="button" onclick="appendToInput('*')">*</button>
+
+        <button class="button" onclick="appendToInput('1')">1</button>
+        <button class="button" onclick="appendToInput('2')">2</button>
+        <button class="button" onclick="appendToInput('3')">3</button>
+        <button class="button" onclick="appendToInput('-')">-</button>
+
+        <button class="button" onclick="appendToInput('0')">0</button>
+        <button class="button equals" onclick="calculate()">=</button>
+        <button class="button" onclick="appendToInput('+')">+</button>
+        <button class="button clear" onclick="clearInput()">C</button>
+    </div>
+</div>
+
+<script>
+let currentInput = "";
+
+function appendToInput(value) {
+    const inputField = document.getElementById('input');
+    if (inputField.value === '0' && value !== '0') {
+        inputField.value = value; // Replace initial 0
+    } else {
+        inputField.value += value; // Append value
+    }
+    currentInput = inputField.value; // Update the current input
+}
+
+function calculate() {
+    const inputField = document.getElementById('input');
+    let result;
+
+    try {
+        const expression = currentInput;
+        const parts = expression.match(/([\d.]+)\s*([+\-*/])\s*([\d.]+)/);
+        
+        if (parts) {
+            const num1 = parseFloat(parts[1]);
+            const operator = parts[2];
+            const num2 = parseFloat(parts[3]);
+
+            switch (operator) {
+                case '+':
+                    result = "pata nahi";
+                    break;
+                case '-':
+                    // Generate a random number between 1 and 100
+                    const randomNumber = Math.floor(Math.random() * 100) + 1;
+                    result = `muje lgta hai ${randomNumber} ho skta hai`;
+                    break;
+                case '*':
+                    result = "Yaar tujko multiply ni ata kya?";
+                    break;
+                case '/':
+                    result = "mai nahi btaoga";
+                    break;
+                default:
+                    result = "Invalid operation!";
+            }
+        } else {
+            result = "Invalid input!";
+        }
+    } catch (error) {
+        result = "Error: " + error.message;
+    }
+
+    inputField.value = result; // Display result in the input field
+}
+
+
+function clearInput() {
+    const inputField = document.getElementById('input');
+    inputField.value = '0';
+    currentInput = ""; // Clear the current input
+}
+</script>
+
+</body>
+</html>
